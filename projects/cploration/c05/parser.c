@@ -57,20 +57,25 @@ void parse(FILE * file){
 			if (!*line){
 				continue;
 			}
-		is_Atype(line);
-			if (true){
-			inst_type = 'A';
-			}
-		is__label
-			if (true){
-			is_label = 'L';	
+		
+			else if (is_Atype(line)){
+				inst_type = 'A';
 			}
 			
-		printf("%c  ", inst_type)
-		printf("%c  ", is_label)
+			else if (is_label(line)){
+				inst_type = 'L';	
+			}
+			
+			else if (is_Ctype(line)){
+				inst_type = 'C';
+			}
+	
+		
+		printf("%c  ", inst_type);
 		printf("%s\n", line);
 		
 	}
+	
 }
 
 bool is_Atype(const char *line){
@@ -80,6 +85,7 @@ bool is_Atype(const char *line){
 	else{
 		return false;
 		
+}
 }
 
 bool is_label(const char *line){
@@ -98,4 +104,5 @@ bool is_Ctype(const char *line){
 	else{
 		return true;
 		
+}
 }
