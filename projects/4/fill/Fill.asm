@@ -8,31 +8,51 @@
 // i.e. writes "black" in every pixel. When no key is pressed, 
 // the screen should be cleared.
 
-//// Replace this comment with your code.
-   @0
-   D=M
-   @INFINITE_LOOP
-   D;JLE 
-   @counter
-   M=D
-   @SCREEN
-   D=A
-   @address
-   M=D
-(LOOP)
-   @address
-   A=M
-   M=-1
-   @address
-   D=M
-   @32
-   D=D+A
-   @address
-   M=D
-   @counter
-   MD=M-1
-   @LOOP
-   D;JGT
-(INFINITE_LOOP)
-   @INFINITE_LOOP
-   0;JMP
+(RESTART)
+    @SCREEN
+    D=A //allows manipulation of screen varaible
+    @0
+    M=D	//sets start value pf screen at ROM[0]
+
+(KBDCHECK)//checks if key is being pressed
+    @KBD
+    D=M //memory of keyboard
+    @BLACK
+    D;JGT //if keyboard value is greater than zero jump to fill
+    @WHITE
+    D;JEQ //i fkeyboard valus is 0 then go to white
+    @KBDCHECK
+    0;JMP
+
+(BLACK)
+    @i
+    M=-1 //twos complimetn will fill with a bunch of ones
+    @LOOP
+    0;JMP
+
+(WHITE)
+    @i
+    M=0	//make screen white
+    @LOOP
+    0;JMP
+
+(LOOP) //pixel incrementer
+    @i 
+    D=M
+    @0
+    A=M	//next screen pixel
+    M=D	//fill pixel
+    @0
+    D=M+1 //goto next pixel
+    @KBD
+    D=A-D //keyboard-screen=A
+    @0
+    M=M+1 //go to next pixel
+    A=M
+    @CHANGE
+    D;JGT //end loop if A=0 becauee whole screen is black
+    @RESTART
+    0;JMP
+
+
+
