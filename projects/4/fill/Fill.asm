@@ -38,7 +38,7 @@
 
 (LOOP) //pixel incrementer
     @i 
-    D=M
+    D=M //is pixel black or white
     @0
     A=M	//next screen pixel
     M=D	//fill pixel
